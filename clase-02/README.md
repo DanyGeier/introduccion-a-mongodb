@@ -236,3 +236,56 @@ db.usuarios.find({
     }
 }) 
 ```
+
+## Operadores lógicos
+
+<https://www.mongodb.com/es/docs/manual/reference/mql/query-predicates/logical/>
+
+###  $and:
+
+```js
+db.usuarios.find({
+    $and: [
+        { nombre: 'Luis' },
+        { edad: 22 }
+    ]
+})
+```
+
+### $not: Niega una condición aplicada sobre un field
+
+```json
+db.usuarios.find({
+    edad: {
+        $not:{
+            $gte: 33
+        }
+    }
+})
+```
+
+### $nor: Devuelve los documentos que no cumplen con ninguna condición
+
+```json
+db.usuarios.find(
+    {
+        $nor: [
+            { nombre: 'Luis'},
+            { edad: 55 }
+        ]
+    }
+)
+```
+
+### $or: Aunque sea una se tiene que cumplir.
+
+```json
+db.usuarios.find(
+    {
+        $or: [
+            { nombre: 'Luis' },
+            { edad: 55 }
+        ]
+    }
+)
+```

@@ -163,41 +163,76 @@ db.usuarios.find({
 ### $gt: Más grandes que...
 
 ```js
-
+db.<nombre-coleccion>.find({})
+db.usuarios.find({
+    edad: {
+        $gt: 33
+    }
+}) // Los usuarios que tengan arriba de 33 años
 ```
 
 ### $gte: Más grandes e iguales que...
 
 ```js
-
-```
-
-### $in: Busca los elementos de la lista
-
-```js
-
+db.<nombre-coleccion>.find({})
+db.usuarios.find({
+    edad: {
+        $gte: 33
+    }
+}) // Los usuarios que tengan arriba de 33 años incluido el 33
 ```
 
 ### $lt: Más chicos que...
 
 ```js
-
+db.<nombre-coleccion>.find({})
+db.usuarios.find({
+    edad: {
+        $lt: 33
+    }
+}) 
 ```
 
 ### $lte: Más chicos o iguales que...
 
 ```js
-
+db.<nombre-coleccion>.find({})
+db.usuarios.find({
+    edad: {
+        $lte: 33
+    }
+}) 
 ```
 
 ### $ne: No igual...
 
 ```js
+db.<nombre-coleccion>.find({})
+db.usuarios.find({
+    edad: {
+        $ne: 33
+    }
+}) 
+```
 
+### $in: Busca los elementos de la lista
+
+```js
+db.<nombre-coleccion>.find({})
+db.usuarios.find({
+    edad: {
+        $in: [10, 15, 50, 33, 23]
+    }
+}) 
 ```
 
 ### $nin: Busca los elementos contrarios a lo del listado
 
 ```js
-
+db.<nombre-coleccion>.find({})
+db.usuarios.find({
+    edad: {
+        $nin: [10, 15, 50, 33, 23]
+    }
+}) 
 ```

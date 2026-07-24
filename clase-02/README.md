@@ -99,3 +99,105 @@ db.productos.find({
     nombre: 'PC'
 }) 
 ```
+
+# Crear una colección e insertar un documento todo en un solo paso
+
+```js
+db.<nombre-de-la-colecion>.insertMany([{},{},{}])
+db.usuarios.insertMany(
+    [
+        {   
+            nombre: 'Luis',
+            edad: 22,
+        },
+        {   
+            nombre: 'Ana',
+            edad: 43,
+        },
+        {   
+            nombre: 'Laura',
+            edad: 33,
+        },
+        {   
+            nombre: 'Grisel',
+            edad: 23,
+        },
+        {   
+            nombre: 'Pedro',
+            edad: 41,
+        },
+    ]
+)
+```
+
+## Contar cantidad de documentos dentro de una colección
+
+```js
+db.<nombre-colección>.countDocuments()
+```
+
+## Contar la cantidad de documentos que nos devuelve una consulta (find())
+
+```js
+db.<nombre-coleccion>.find().count()
+db.<nombre-colecion>.find().size()
+```
+
+# Operadores -> $
+
+## Operadores de comparación
+
+<https://www.mongodb.com/es/docs/manual/reference/mql/query-predicates/comparison/>
+
+### $eq: Iguales que
+
+```js
+db.<nombre-colección>.find({})
+db.usuarios.find({
+    nombre: {
+        $eq: 'Luis'
+    }
+})
+```
+
+### $gt: Más grandes que...
+
+```js
+
+```
+
+### $gte: Más grandes e iguales que...
+
+```js
+
+```
+
+### $in: Busca los elementos de la lista
+
+```js
+
+```
+
+### $lt: Más chicos que...
+
+```js
+
+```
+
+### $lte: Más chicos o iguales que...
+
+```js
+
+```
+
+### $ne: No igual...
+
+```js
+
+```
+
+### $nin: Busca los elementos contrarios a lo del listado
+
+```js
+
+```

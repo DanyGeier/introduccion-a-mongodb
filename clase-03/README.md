@@ -456,7 +456,7 @@ db.productos.updateMany(
 ```
 
 # Proyección en el find()
-Nos ver los fields que le digamos en la consulta.
+Nos permite ver los fields que le digamos en la consulta.
 
 > Ejemplo en DBs relacionales
 
@@ -525,4 +525,27 @@ db.productos.find().skip(4).limit(2)
 db.productos.find().skip(6).limit(2)
 db.productos.find().skip(8).limit(2)
 db.productos.find().skip(10).limit(2)
+```
+
+# MongoDB Database Tools (CLI)
+
+## MONGODUMP
+Me permite crear o hacer backups (dumps) de mis bases de datos y colecciones
+
+<https://www.mongodb.com/es/docs/database-tools/mongodump/>
+
+```sh
+mongodump <options> <connection-string>
+mongodump --db=<nombre-base-datos> --collection=<nombre-colection> --out=<ruta>
+mongodump --db=mongo_87347 # todas las coleciones dentro de la DB
+mongodump --db=mongo_87347 --collection=productos
+```
+
+## MONGORESTORE
+Me permite recuperar bakcups (dumps) que hice con mongodump (Bases de datos completas o colecciones en especifico)
+
+<https://www.mongodb.com/es/docs/database-tools/mongorestore/>
+
+```sh
+mongorestore <options> <connection-string> <directory or file to restore>
 ```

@@ -406,7 +406,7 @@ db.articulos.aggregate([
     }, /* stage 1 */
     {
         $sort: {
-            precio: 1 /* descendente */
+            precio: -1 /* descendente */
         } /* stage 2 */
     }
 ])
@@ -471,4 +471,91 @@ db.articulos.aggregate([
 ])
 ```
 
-## 
+## Mostrar nombre, precio y categoria
+
+```js
+db.articulos.aggregate([
+    {
+        $lookup: {
+            from: "categorias",
+            localField: 'categoriaId',
+            foreignField: '_id',
+            as: 'categoria'
+        }
+    }, /* stage 1 */
+    {
+        $unwind: "$categoria"
+    },
+    {
+        $project: {
+            _id: 0,
+            nombre: 1, 
+            precio: 1,
+            categoria: '$categoria.nombre'
+        }
+    }
+])
+```
+
+## Mostrar nombre, precio y categoria. Saque precio promedio por categoría
+
+```js
+db.articulos.aggregate([
+    {
+        $lookup: {
+            from: "categorias",
+            localField: 'categoriaId',
+            foreignField: '_id',
+            as: 'categoria'
+        }
+    }, /* stage 1 */
+    {
+        $unwind: "$categoria"
+    },
+    {
+        $group: {
+            _id: '$categoria.nombre',
+            precio_promedio: {
+                $avg: '$precio'
+            }
+        }
+    }
+])
+```
+
+## Categorías favoritas por cliente
+
+```js
+db.clientes.aggregate([
+    {
+        $unwind: '$preferencias.categoriasFavoritas'
+    },
+    {
+        $lookup: {
+            from: 'categorias',
+            localField: 'preferencias.categoriasFavoritas',
+            foreignField: '_id',
+            as: 'categoria'
+        }
+    },
+    {
+        $unwind: '$categoria'
+    },
+    {
+        $project: {
+            _id: 0,
+            cliente: '$nombre',
+            categoria_favorita: '$categoria.nombre'
+        }
+    },
+    {
+        $group:{
+            _id: '$categoria_favorita',
+            cantidadClientes: {
+                $sum: 1
+            },
+            clientes: { $push: '$cliente'}
+        }
+    }
+])
+```

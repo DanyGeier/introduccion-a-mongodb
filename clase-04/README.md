@@ -159,7 +159,7 @@ db.categorias.insertMany([
 ])
 ```
 
-> Colección productos
+> Colección artículos
 
 ```sh
 db.articulos.insertMany([
@@ -322,4 +322,72 @@ db.clientes.insertMany([
         "preferencias":{"newsletter":false,"categoriasFavoritas":[ObjectId("64f100000000000000000002")]}
     }
 ])
+```
+
+## Mostrar artículos que sean mayores a 500
+
+```js
+db.articulos.aggregate(
+    [
+        {
+            $match: {
+                precio: { $gt: 500 }
+            }
+        } /* primera etapa */
+    ] /* pipepine */
+)
+```
+
+## Mostrar los clientes mayores de 35 años
+
+```js
+db.clientes.aggregate(
+    [
+        {
+            $match: {
+                precio: { $gt: 35 }
+            }
+        } 
+    ] 
+)
+```
+
+## Articulos que venga de un proveedor Chino
+
+```js
+db.clientes.aggregate(
+    [
+        {
+            $match: {
+                "proveedor.pais": { $eq: 'China' }
+            }
+        }
+    ]
+)
+```
+
+## Mostrar el nombre, precio y precio con IVA
+
+```js
+db.articulos.aggregate(
+    [
+        {
+            $match: {
+                precio: {
+                    $gte: 1200
+                }
+            }
+        }, /* etapa 1 */
+        {
+            $project: {
+                _id: 0,
+                nombre: 1,
+                precio: 1,
+                precioIVA: {
+                    $multiply: ["$precio", 1.21]
+                }
+            }
+        } /* etapa 2 */
+    ] /* pipeline */
+)
 ```
